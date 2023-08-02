@@ -8,15 +8,21 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def summary_with_davinci(text):
-    summarized_text = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=text + "\n\nTl;dr",
-        temperature=0.7,
-        max_tokens=250,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=1
+def summary_with_gpt3(text):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "system",
+                "content": "Riassumi questo testo estratto da un messaggio audio che ho ricevuto. Inoltre proponimi una risposta veloce che potrei dare a chi mi ha inviato il messaggio"
+            },
+            {
+                "role": "user",
+                "content": text
+            }
+        ],
+        temperature=0,
+        max_tokens=1024
     )
 
-    return summarized_text.choices[0].text
+    return response.choices[0].message.content

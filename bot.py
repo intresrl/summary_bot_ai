@@ -1,12 +1,15 @@
-import requests
-import telebot
 import os
 import tempfile
+import requests
+import telebot
+from dotenv import load_dotenv
 
 from speech_to_text import speech_to_text
-from summary_with_openai import summary_with_davinci
+from summary_with_openai import summary_with_gpt3
 
-API_TOKEN = "YOUR_TELEGRAM_TOKEN"
+load_dotenv()
+
+API_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 
 def start_bot():
@@ -29,7 +32,7 @@ def start_bot():
             with open(audio_path, 'wb') as audio_file:
                 audio_file.write(file.content)
             transcription = speech_to_text(audio_path)
-            summary = summary_with_davinci(transcription)
+            summary = summary_with_gpt3(transcription)
             bot.send_message(message.chat.id, summary)
             os.remove(audio_path)
 
