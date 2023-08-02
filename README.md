@@ -23,3 +23,17 @@ To use your OpenAI API Key in this bot, you need to add to an `.env` file the fo
 ```OPENAI_API_KEY=YOUR_API_KEY```
 
 Alternatively, you can define this environment variable in your run configuration.
+
+## Dependency installation
+The list of bot dependencies is contained in the `requirements.txt` file. To install them you can run the following command from the root:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Run the summary bot
+The execution of the bot starts from the main.py file, so to run it you can use the following command from the root:
+
+```bash
+python main.py
+```
